@@ -1,0 +1,18 @@
+[
+  {"id": "acme-001", "sender": "jane.doe@example.com", "subject": "URGENT - scammed on marketplace, need refund",
+   "body": "I paid for a phone charger listing and the seller never delivered. This looks like a scam, I need a refund urgently. Please help.", "received_at": 1755900000},
+  {"id": "acme-002", "sender": "billing@stripe.com", "subject": "Your invoice for August is ready",
+   "body": "Invoice #1001 for $240.00 is attached. Payment due within 14 days.", "received_at": 1755903600},
+  {"id": "acme-003", "sender": "partnerships@brand.example.com", "subject": "Partnership opportunity",
+   "body": "Hi, we'd love to discuss a potential advertising partnership with your marketplace.", "received_at": 1755907200},
+  {"id": "acme-004", "sender": "noreply@acme.example.com", "subject": "Your listing 'phone charger' has sold!",
+   "body": "Order confirmed. Buyer will contact you to arrange pickup.", "received_at": 1755910800},
+  {"id": "acme-005", "sender": "alerts@vercel.com", "subject": "Deployment failed for acme-production",
+   "body": "Your latest deployment failed to build. Error: webhook failed to respond within timeout.", "received_at": 1755914400},
+  {"id": "acme-006", "sender": "user123@example.org", "subject": "reporting a fake listing",
+   "body": "I want to report this listing as inappropriate, it looks like a fake account trying to scam people.", "received_at": 1755918000},
+  {"id": "acme-007", "sender": "newsletter@weekly.example.net", "subject": "This week in e-commerce",
+   "body": "Here's your weekly roundup of e-commerce news.", "received_at": 1755921600},
+  {"id": "acme-008", "sender": "jane.doe@example.com", "subject": "still no response on my refund",
+   "body": "Following up urgently, still no refund and no response.", "received_at": 1755925200}
+]

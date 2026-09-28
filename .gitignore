@@ -1,0 +1,17 @@
+# Runtime data — contains real senders/subjects, never commit
+memory/
+*.db
+obsidian_export/
+
+# Secrets
+.env
+*.pem
+
+# Real per-business context files (add your real config filenames here too)
+config/*_context.md
+!config/example_context.md
+
+# Python
+__pycache__/
+*.pyc
+.venv/

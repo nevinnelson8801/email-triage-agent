@@ -1,0 +1,88 @@
+{
+  "business_id": "demo_school",
+  "display_name": "Demo School Platform",
+  "mailbox": {
+    "connector": "mock",
+    "connection": {
+      "folder": "INBOX"
+    }
+  },
+  "categories": [
+    {
+      "id": "urgent_outage",
+      "label": "Urgent / Outage",
+      "description": "Customer can't access the system, core feature down during working hours",
+      "priority": 1,
+      "keywords": ["can't log in", "system down", "not syncing", "sync failed", "outage", "can't access"],
+      "sender_rules": [],
+      "action": "notify_immediately",
+      "draft_reply": false
+    },
+    {
+      "id": "sales_leads",
+      "label": "Sales / Leads",
+      "description": "New customer inquiries, demo requests, pricing questions",
+      "priority": 1,
+      "keywords": ["demo", "pricing", "trial", "quote"],
+      "sender_rules": [],
+      "action": "notify_immediately",
+      "draft_reply": false
+    },
+    {
+      "id": "partner_program",
+      "label": "Partner Program",
+      "description": "Reseller and partnership inquiries",
+      "priority": 1,
+      "keywords": ["partner with", "reseller", "partner program"],
+      "sender_rules": [],
+      "action": "log_only",
+      "draft_reply": false
+    },
+    {
+      "id": "onboarding",
+      "label": "Onboarding / Migration",
+      "description": "Active customer setup, data migration, training scheduling",
+      "priority": 2,
+      "keywords": ["migration", "onboarding", "import records", "training session", "go live"],
+      "sender_rules": [],
+      "action": "log_only",
+      "draft_reply": false
+    },
+    {
+      "id": "support_tickets",
+      "label": "Support Tickets",
+      "description": "Bug reports, how-do-I questions, general technical issues",
+      "priority": 2,
+      "keywords": ["bug", "issue", "error", "not working", "having trouble with", "how do i"],
+      "sender_rules": [],
+      "action": "log_only",
+      "draft_reply": false
+    },
+    {
+      "id": "billing_vendor",
+      "label": "Invoices / Vendor Billing",
+      "description": "Incoming invoices from hosting, tooling, or contractor vendors",
+      "priority": 3,
+      "keywords": ["invoice", "receipt", "payment due", "billing statement"],
+      "sender_rules": ["billing@*", "*@stripe.com", "invoicing@*"],
+      "action": "log_only",
+      "draft_reply": false
+    },
+    {
+      "id": "general",
+      "label": "General / Low Priority",
+      "description": "Newsletters, digests, and anything not matching other categories",
+      "priority": 5,
+      "keywords": [],
+      "sender_rules": [],
+      "action": "ignore",
+      "draft_reply": false
+    }
+  ],
+  "default_category": "general",
+  "actions": {
+    "notify_immediately": { "type": "whatsapp_free" },
+    "log_only":           { "type": "slack_or_email_digest" },
+    "ignore":             {}
+  }
+}

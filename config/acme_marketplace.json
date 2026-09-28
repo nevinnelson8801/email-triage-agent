@@ -1,0 +1,79 @@
+{
+  "business_id": "acme_marketplace",
+  "display_name": "Acme Marketplace",
+  "mailbox": {
+    "connector": "mock",
+    "connection": {}
+  },
+  "categories": [
+    {
+      "id": "content_moderation",
+      "label": "Content Moderation",
+      "description": "Flagged listings, abuse reports, fake accounts, reported posts",
+      "priority": 1,
+      "keywords": ["report this", "flagged", "fake listing", "inappropriate", "spam post", "abuse"],
+      "sender_rules": [],
+      "action": "notify_immediately"
+    },
+    {
+      "id": "urgent_support",
+      "label": "Urgent / Support",
+      "description": "Scams, payment disputes, angry or urgent customer issues",
+      "priority": 2,
+      "keywords": ["urgent", "scam", "scammed", "fraud", "not working", "refund", "complaint", "unsafe", "harassment", "emergency"],
+      "sender_rules": [],
+      "action": "notify_immediately"
+    },
+    {
+      "id": "platform_ops",
+      "label": "Platform Ops / Alerts",
+      "description": "Hosting, API, webhook, server, uptime alerts from infrastructure providers",
+      "priority": 2,
+      "keywords": ["downtime", "server error", "webhook failed", "api limit", "deployment failed", "uptime alert"],
+      "sender_rules": ["*@aws.amazon.com", "*@vercel.com", "*@render.com", "*@sendgrid.com", "*@twilio.com"],
+      "action": "notify_immediately"
+    },
+    {
+      "id": "invoices_billing",
+      "label": "Invoices / Vendor Billing",
+      "description": "Incoming vendor invoices, subscription receipts, payment confirmations for tools the business pays for",
+      "priority": 3,
+      "keywords": ["invoice", "receipt", "payment due", "billing statement", "subscription renewed"],
+      "sender_rules": ["billing@*", "*@stripe.com", "invoicing@*"],
+      "action": "log_only"
+    },
+    {
+      "id": "partnerships_press",
+      "label": "Partnerships / Press",
+      "description": "Business partnership pitches, media/press inquiries, advertiser interest",
+      "priority": 3,
+      "keywords": ["partnership", "collaborate", "press inquiry", "advertise with", "media request", "interview request"],
+      "sender_rules": [],
+      "action": "log_only"
+    },
+    {
+      "id": "transactions",
+      "label": "Transactions",
+      "description": "Routine sale/purchase confirmations",
+      "priority": 4,
+      "keywords": ["order confirmed", "booking confirmed", "listing sold"],
+      "sender_rules": [],
+      "action": "log_only"
+    },
+    {
+      "id": "general",
+      "label": "General / Low Priority",
+      "description": "Newsletters, digests, and anything not matching other categories",
+      "priority": 5,
+      "keywords": [],
+      "sender_rules": [],
+      "action": "ignore"
+    }
+  ],
+  "default_category": "general",
+  "actions": {
+    "notify_immediately": { "type": "whatsapp_free" },
+    "log_only":           { "type": "slack_or_email_digest" },
+    "ignore":             {}
+  }
+}

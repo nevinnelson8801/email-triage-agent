@@ -1,0 +1,16 @@
+[
+  {"id": "demo-001", "sender": "admin@school-a.example.edu", "subject": "URGENT - attendance system not syncing",
+   "body": "Our teachers can't log attendance this morning, the app says sync failed. Students are already arriving. Please help urgently.", "received_at": 1755900000},
+  {"id": "demo-002", "sender": "billing@stripe.com", "subject": "Your invoice for hosting is ready",
+   "body": "Invoice #2002 for $89.00 is attached. Payment due within 14 days.", "received_at": 1755903600},
+  {"id": "demo-003", "sender": "principal@school-b.example.edu", "subject": "Interested in a demo",
+   "body": "Hi, we run a school of 400 students and are interested in pricing and a demo of your platform.", "received_at": 1755907200},
+  {"id": "demo-004", "sender": "it@school-a.example.edu", "subject": "Bug with grading export",
+   "body": "When we export grades to PDF, the last column gets cut off. Not urgent but would like it fixed.", "received_at": 1755910800},
+  {"id": "demo-005", "sender": "office@school-c.example.org", "subject": "Ready for data migration",
+   "body": "We've finished cleaning our student records, ready to schedule the migration and training session whenever you are.", "received_at": 1755914400},
+  {"id": "demo-006", "sender": "reseller@partners.example.com", "subject": "Interested in becoming a reseller",
+   "body": "We work with 20+ schools in the region and would like to discuss a partner with us arrangement.", "received_at": 1755918000},
+  {"id": "demo-007", "sender": "newsletter@edtech.example.net", "subject": "This week in EdTech",
+   "body": "Your weekly roundup of education technology news.", "received_at": 1755921600}
+]
