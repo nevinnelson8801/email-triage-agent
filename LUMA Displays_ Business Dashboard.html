@@ -1,0 +1,87 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"><title>LUMA Displays: Business Dashboard</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@500;700&family=IBM+Plex+Sans:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#F3F4F8;--panel:#FFFFFF;--ink:#1E2235;--mute:#6B7089;--line:#E1E3EC;--amber:#E69A00;--teal:#0E8F8A;--red:#D64545;--slate:#8E96B0;--sky:#3BA0D8;--chip:#ECEEF5}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--bg:#141726;--panel:#1C2033;--ink:#EDEFF7;--mute:#9AA0BA;--line:#2B3050;--amber:#F5B33A;--teal:#38C2BB;--red:#F0716F;--slate:#7F88A8;--sky:#5FB9EE;--chip:#252A42}}
+:root[data-theme="dark"]{--bg:#141726;--panel:#1C2033;--ink:#EDEFF7;--mute:#9AA0BA;--line:#2B3050;--amber:#F5B33A;--teal:#38C2BB;--red:#F0716F;--slate:#7F88A8;--sky:#5FB9EE;--chip:#252A42}
+*{box-sizing:border-box}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;background:var(--bg);color:var(--ink);font:400 15px/1.5 "IBM Plex Sans",system-ui,Arial,sans-serif}
+.wrap{max-width:1160px;margin:0 auto;padding:28px 20px 56px}
+h1,h2,.num{font-family:"Bricolage Grotesque","IBM Plex Sans",Arial,sans-serif;margin:0}
+h1{font-size:clamp(28px,5vw,44px);line-height:1.05;letter-spacing:-.02em}
+.sub{color:var(--mute);max-width:60ch;margin:10px 0 0}
+.kpis{display:grid;grid-template-columns:repeat(4,1fr);margin:28px 0;border-block:1px solid var(--line)}
+.kpi{padding:18px 18px 18px 0}.kpi+.kpi{padding-left:18px;border-left:1px solid var(--line)}
+.num{font-size:clamp(24px,3.4vw,36px);font-weight:700;letter-spacing:-.02em}.lab{color:var(--mute);font-size:13px}
+.grid{display:grid;grid-template-columns:1.7fr 1fr;gap:18px}
+.panel{background:var(--panel);border:1px solid var(--line);border-radius:12px;padding:20px;min-width:0}
+h2{font-size:19px;margin-bottom:4px}.hint{color:var(--mute);font-size:13px;margin:0 0 14px}
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin:0 0 12px}
+button.chip{font:500 13px "IBM Plex Sans",Arial,sans-serif;color:var(--ink);background:var(--chip);border:1px solid transparent;border-radius:99px;padding:6px 14px;cursor:pointer}
+button.chip[aria-pressed="true"]{background:var(--ink);color:var(--panel)}
+button.chip:focus-visible,input:focus-visible{outline:2px solid var(--amber);outline-offset:2px}
+svg{display:block;width:100%;height:auto;overflow:visible}svg text{font-family:"IBM Plex Sans",Arial,sans-serif;font-size:11px;fill:var(--mute)}
+.stats{display:flex;gap:22px;flex-wrap:wrap;margin-top:12px}.stats b{display:block;font-size:18px;font-family:"Bricolage Grotesque",Arial,sans-serif}
+input[type=range]{width:100%;accent-color:var(--amber)}.big{font-size:44px;font-weight:700}
+.row{display:flex;justify-content:space-between;gap:10px;padding:8px 0;border-top:1px solid var(--line);font-size:14px}.row span:first-child{color:var(--mute)}
+.full{margin-top:18px}.tip{position:fixed;pointer-events:none;background:var(--ink);color:var(--panel);padding:6px 10px;border-radius:6px;font-size:12px;opacity:0;z-index:5}
+.legend{display:flex;gap:14px;flex-wrap:wrap;font-size:12px;color:var(--mute);margin-top:8px}.legend i{display:inline-block;width:10px;height:10px;border-radius:50%;margin-right:5px}
+.theme{float:right}footer{margin-top:28px;color:var(--mute);font-size:12px}
+@media(max-width:860px){.grid{grid-template-columns:1fr}.kpis{grid-template-columns:1fr 1fr}.kpi:nth-child(3){padding-left:0;border-left:0}.kpi:nth-child(n+3){border-top:1px solid var(--line)}}
+@media(prefers-reduced-motion:no-preference){.line{stroke-dasharray:1200;stroke-dashoffset:1200;animation:d 1.1s ease-out forwards}@keyframes d{to{stroke-dashoffset:0}}}
+</style></head><body><div class="wrap">
+<button class="chip theme" id="theme" aria-label="Toggle light or dark theme">Theme</button>
+<h1>LUMA Displays</h1><p class="sub">Premium illuminated signage for Trivandrum. Market position, year-1 forecast and break-even in one place.</p>
+<div class="kpis">
+<div class="kpi"><div class="num">₹18.9L</div><div class="lab">Year-1 revenue, base case</div></div>
+<div class="kpi"><div class="num">5.7</div><div class="lab">Installs a month to break even</div></div>
+<div class="kpi"><div class="num">479</div><div class="lab">Market HHI: fragmented</div></div>
+<div class="kpi"><div class="num">₹9.4 Cr</div><div class="lab">Trivandrum premium market size</div></div></div>
+<div class="grid">
+<section class="panel"><h2>Year-1 forecast</h2><p class="hint">Pick a scenario to see monthly revenue and profit after all costs.</p>
+<div class="tabs" id="scen" role="group" aria-label="Scenario"></div><div id="fc"></div><div class="stats" id="fcs"></div></section>
+<section class="panel"><h2>Break-even calculator</h2><p class="hint">Fixed costs ₹48,000 a month; materials and labour take 53% of revenue.</p>
+<label for="asp" class="lab">Average price per installation</label><div class="num" id="aspv" style="font-size:24px"></div>
+<input id="asp" type="range" min="8000" max="35000" step="500" value="18000">
+<div style="margin:16px 0 6px" class="lab">Installations needed each month</div><div class="num big" id="bu"></div>
+<div class="row"><span>Break-even revenue</span><span id="br"></span></div><div class="row"><span>Profit per extra install</span><span id="bp"></span></div></section></div>
+<section class="panel full"><h2>Competitors: price vs. design</h2><p class="hint">Each dot is one of 32 competitors. Premium work costs more and scores higher on design (r = 0.73).</p>
+<div class="tabs" id="seg" role="group" aria-label="Segment filter"></div><div id="sc"></div><div class="legend"><span><i style="background:var(--slate)"></i>Budget / flex (15)</span><span><i style="background:var(--sky)"></i>Mid signage (10)</span><span><i style="background:var(--amber)"></i>Premium (7)</span></div></section>
+<div class="grid full"><section class="panel"><h2>Average price by segment</h2><p class="hint">₹ per sq ft. LUMA's gap sits between mid and premium.</p><div id="pb"></div></section>
+<section class="panel"><h2>What customers complain about</h2><p class="hint">Sample of 15 competitor reviews.</p><div id="cp"></div></section></div>
+<footer>Source: Phase 2 analysis. 26 of 32 competitor records are demo data, so replace them with surveyed prices before sharing externally.</footer></div><div class="tip" id="tip"></div>
+<script>
+const C=[["CC01", 537, 1.0, "m", 3.6], ["CC02", 158, 1.0, "b", 4.0], ["CC03", 216, 1.0, "b", 3.9], ["CC04", 200, 1.0, "b", 3.6], ["CC05", 880, 4.0, "m", 4.2], ["CC06", 172, 1.8, "b", 4.4], ["CC07", 409, 1.8, "m", 4.4], ["CC08", 244, 1.8, "b", 4.2], ["CC09", 2139, 4.0, "p", 4.3], ["CC10", 882, 4.0, "m", 4.5], ["CC11", 283, 1.8, "b", 3.7], ["CC12", 186, 1.8, "b", 3.8], ["CC13", 392, 1.0, "b", 3.9], ["CC14", 159, 1.8, "b", 4.4], ["CC15", 877, 4.0, "p", 4.4], ["CC16", 711, 3.2, "m", 3.6], ["CC17", 503, 1.0, "m", 4.0], ["CC18", 187, 1.8, "b", 4.2], ["CC19", 815, 4.0, "m", 4.3], ["CC20", 278, 1.0, "b", 3.7], ["CC21", 1352, 4.0, "p", 4.7], ["CC22", 2132, 4.0, "p", 4.4], ["CC23", 341, 1.0, "b", 3.8], ["CC24", 857, 3.2, "m", 4.0], ["CC25", 346, 1.0, "b", 3.9], ["CC26", 249, 1.0, "b", 3.7], ["Aidas India (Kochi)", 850, 4.0, "p", 4.1], ["Hawaii Sign & LED LLP", 480, 1.8, "b", 4.3], ["Sign Factory India", 900, 4.0, "p", 4.2], ["Omvision Signage", 750, 3.2, "p", 4.0], ["Matt Gloss Advertising", 550, 1.8, "m", 3.8], ["Whiteness Sign", 480, 4.0, "m", 4.1]],SEG={b:['Budget / flex','var(--slate)'],m:['Mid signage','var(--sky)'],p:['Premium','var(--amber)']};
+const M=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
+const R={Base:[0,36000,72000,112500,135000,157500,175500,198000,220500,238500,261000,283500],Optimistic:[0,54000,108000,168750,211500,254250,272250,315000,339750,357750,400500,443250],Pessimistic:[0,18000,36000,56250,76500,96750,114750,135000,137250,155250,157500,177750]};
+const COL={Base:'var(--amber)',Optimistic:'var(--teal)',Pessimistic:'var(--red)'},FIX=48000,CM=.47;
+const $=id=>document.getElementById(id),L=n=>'₹'+(Math.abs(n)/1e5).toFixed(1)+'L',K=n=>'₹'+Math.round(n/1000)+'k';
+const tip=$('tip');function showTip(e,t){tip.textContent=t;tip.style.opacity=1;tip.style.left=Math.min(e.clientX+12,innerWidth-190)+'px';tip.style.top=e.clientY+14+'px'}function hideTip(){tip.style.opacity=0}
+function chips(el,items,cur,fn){el.innerHTML='';items.forEach(([k,t])=>{const b=document.createElement('button');b.className='chip';b.textContent=t;b.setAttribute('aria-pressed',k===cur);b.onclick=()=>{fn(k);[...el.children].forEach(c=>c.setAttribute('aria-pressed',c===b))};el.appendChild(b)})}
+let scen='Base';
+function forecast(){const w=640,h=300,p={l:46,r:14,t:10,b:28},rev=R[scen],pr=rev.map(v=>v*CM-FIX);const mx=450000,mn=-60000,X=i=>p.l+i*(w-p.l-p.r)/11,Y=v=>p.t+(mx-v)/(mx-mn)*(h-p.t-p.b);
+let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Monthly revenue and profit, ${scen} scenario">`;
+for(let v=0;v<=450000;v+=150000)s+=`<line x1="${p.l}" x2="${w-p.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${p.l-8}" y="${Y(v)+4}" text-anchor="end">${K(v)}</text>`;
+s+=`<line x1="${p.l}" x2="${w-p.r}" y1="${Y(0)}" y2="${Y(0)}" stroke="var(--mute)"/>`;
+M.forEach((m,i)=>{s+=`<text x="${X(i)}" y="${h-8}" text-anchor="middle">${m}</text>`;const hh=Math.abs(Y(pr[i])-Y(0));s+=`<rect x="${X(i)-9}" y="${pr[i]>=0?Y(pr[i]):Y(0)}" width="18" height="${hh}" rx="2" fill="${pr[i]>=0?'var(--teal)':'var(--red)'}" opacity=".35"/>`});
+s+=`<polyline class="line" fill="none" stroke="${COL[scen]}" stroke-width="3" stroke-linejoin="round" points="${rev.map((v,i)=>X(i)+','+Y(v)).join(' ')}"/>`;
+rev.forEach((v,i)=>{s+=`<circle cx="${X(i)}" cy="${Y(v)}" r="9" fill="transparent" data-t="${M[i]}: revenue ${K(v)}, profit ${pr[i]<0?'-':''}${K(Math.abs(pr[i]))}"/>`});
+$('fc').innerHTML=s+'</svg>';$('fc').querySelectorAll('circle').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip});
+const tr=rev.reduce((a,b)=>a+b),tp=tr*CM-FIX*12,be=pr.findIndex((v,i)=>i>0&&v>0);
+$('fcs').innerHTML=`<div><span class="lab">Year-1 revenue</span><b>${L(tr)}</b></div><div><span class="lab">Year-1 profit</span><b style="color:${tp<0?'var(--red)':'inherit'}">${tp<0?'-':''}${L(tp)}</b></div><div><span class="lab">First profitable month</span><b>${be<0?'None in year 1':M[be]}</b></div><div><span class="lab">Bars</span><b style="font-size:13px;font-weight:500">Monthly profit</b></div>`}
+function scatter(f){const w=900,h=340,p={l:50,r:16,t:12,b:40},X=v=>p.l+v/2300*(w-p.l-p.r),Y=v=>p.t+(4.5-v)/4*(h-p.t-p.b);
+let s=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Scatter of price per sq ft against design score">`;
+[1,2,3,4].forEach(v=>s+=`<line x1="${p.l}" x2="${w-p.r}" y1="${Y(v)}" y2="${Y(v)}" stroke="var(--line)"/><text x="${p.l-8}" y="${Y(v)+4}" text-anchor="end">${v}</text>`);
+for(let v=0;v<=2000;v+=500)s+=`<text x="${X(v)}" y="${h-16}" text-anchor="middle">₹${v.toLocaleString('en-IN')}</text>`;
+s+=`<text x="${(w+p.l)/2}" y="${h-1}" text-anchor="middle">Price per sq ft</text><text x="12" y="${h/2}" transform="rotate(-90 12 ${h/2})" text-anchor="middle">Design score</text>`;
+C.forEach((c,i)=>{if(f!=='all'&&c[3]!==f)return;const j=((i*37)%100/100-.5)*.3;s+=`<circle cx="${X(c[1])}" cy="${Y(c[2]+j)}" r="7" fill="${SEG[c[3]][1]}" fill-opacity=".85" stroke="var(--panel)" stroke-width="1.5" data-t="${c[0]}: ₹${c[1]}/sq ft, design ${c[2]}, rating ${c[4]}"/>`});
+$('sc').innerHTML=s+'</svg>';$('sc').querySelectorAll('circle').forEach(c=>{c.onmousemove=e=>showTip(e,c.dataset.t);c.onmouseleave=hideTip})}
+function bars(el,rows,fmt,max){$(el).innerHTML=rows.map(([l,v,c])=>`<div style="display:grid;grid-template-columns:130px 1fr auto;gap:10px;align-items:center;margin:10px 0;font-size:14px"><span>${l}</span><div style="background:var(--chip);border-radius:6px;height:22px"><div style="width:${v/max*100}%;height:100%;background:${c};border-radius:6px"></div></div><b>${fmt(v)}</b></div>`).join('')}
+function be(){const a=+$('asp').value;$('aspv').textContent='₹'+a.toLocaleString('en-IN');const rv=FIX/CM;$('bu').textContent=(rv/a).toFixed(1);$('br').textContent='₹'+Math.round(rv).toLocaleString('en-IN');$('bp').textContent='₹'+Math.round(a*CM).toLocaleString('en-IN')}
+chips($('scen'),Object.keys(R).map(k=>[k,k]),scen,k=>{scen=k;forecast()});
+chips($('seg'),[['all','All'],['b','Budget / flex'],['m','Mid signage'],['p','Premium']],'all',scatter);
+const avg=k=>{const a=C.filter(c=>c[3]===k);return a.reduce((s,c)=>s+c[1],0)/a.length};
+bars('pb',['b','m','p'].map(k=>[SEG[k][0],avg(k),SEG[k][1]]),v=>'₹'+Math.round(v).toLocaleString('en-IN'),1400);
+bars('cp',[['Late / slow service',4,'var(--red)'],['Fading or failing',3,'var(--red)'],['Poor finishing',1,'var(--red)'],['No creativity',1,'var(--red)']],v=>v+' of 15',4);
+$('asp').oninput=be;be();forecast();scatter('all');
+$('theme').onclick=()=>{const r=document.documentElement,d=r.dataset.theme?r.dataset.theme==='dark':matchMedia('(prefers-color-scheme:dark)').matches;r.dataset.theme=d?'light':'dark'};
+</script></body></html>
